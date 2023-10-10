@@ -12,6 +12,7 @@ import org.apache.kafka.streams.kstream.JoinWindows;
 import org.apache.kafka.streams.kstream.KStream;
 
 public class JoinsMain {
+
     public static void main(String[] args) {
 
         // Set up the configuration.
@@ -32,7 +33,8 @@ public class JoinsMain {
         // Perform an inner join.
         KStream<String, String> innerJoined = left.join(
             right,
-            (leftValue, rightValue) -> "left=" + leftValue + ", right=" + rightValue,  // this is called value joiner
+            // this is called value joiner
+            (leftValue, rightValue) -> "left=" + leftValue + ", right=" + rightValue,
             JoinWindows.of(Duration.ofMinutes(5))
         );
         innerJoined.to("inner-join-output-topic");
@@ -78,5 +80,7 @@ public class JoinsMain {
         }
 
         System.exit(0);
+
     }
+
 }

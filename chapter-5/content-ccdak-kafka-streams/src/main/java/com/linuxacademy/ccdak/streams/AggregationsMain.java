@@ -14,6 +14,7 @@ import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.kstream.Produced;
 
 public class AggregationsMain {
+
     public static void main(String[] args) {
 
         // Set up the configuration.
@@ -44,9 +45,13 @@ public class AggregationsMain {
         // Create an aggregation that totals the length in characters of the value
         // for all records sharing the same key.
         KTable<String, Integer> aggregatedTable = groupedStream.aggregate(
-            () -> 0, // Initializer, this initialize an aggregate value
-            (aggKey, newValue, aggValue) -> aggValue + newValue.length(), // this is our actual aggregation
-            Materialized.with(Serdes.String(), Serdes.Integer()) // used to tell our Kafka streams application how to actually build our data store, because default value of Key and Value are string but in this aggregate we have an integer type of a value
+            // Initializer, this initialize an aggregate value
+            () -> 0,
+            // this is our actual aggregation
+            (aggKey, newValue, aggValue) -> aggValue + newValue.length(),
+            // used to tell our Kafka streams application how to actually build our data store, because
+            // default value of Key and Value are string but in this aggregate we have an integer type of a value
+            Materialized.with(Serdes.String(), Serdes.Integer())
         );
 
         aggregatedTable.toStream().to(
@@ -69,7 +74,10 @@ public class AggregationsMain {
         KTable<String, String> reducedTable = groupedStream.reduce(
             (aggValue, newValue) -> aggValue + " " + newValue
         );
-        reducedTable.toStream().to("aggregations-output-reduce-topic"); // We don't need to specify Materialized.with() because the Key-Value are in string type. And we don't use Produce.with() because we don't need a custom SerDe here
+
+        // We don't need to specify Materialized.with() because the Key-Value are in string type.
+        // And we don't use Produce.with() because we don't need a custom SerDe here
+        reducedTable.toStream().to("aggregations-output-reduce-topic");
 
         final Topology topology = builder.build();
         final KafkaStreams streams = new KafkaStreams(topology, props);
@@ -96,5 +104,7 @@ public class AggregationsMain {
         }
 
         System.exit(0);
+
     }
+
 }

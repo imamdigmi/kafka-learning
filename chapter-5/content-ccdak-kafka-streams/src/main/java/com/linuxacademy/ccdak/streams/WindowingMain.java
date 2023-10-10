@@ -18,6 +18,7 @@ import org.apache.kafka.streams.kstream.Windowed;
 import org.apache.kafka.streams.kstream.WindowedSerdes;
 
 public class WindowingMain {
+
     public static void main(String[] args) {
 
         // Set up the configuration.
@@ -33,6 +34,7 @@ public class WindowingMain {
         // Get the source stream.
         final StreamsBuilder builder = new StreamsBuilder();
         KStream<String, String> source = builder.stream("windowing-input-topic");
+
         KGroupedStream<String, String> groupedStream = source.groupByKey();
 
         // Apply windowing to the stream with tumbling time windows of 10 seconds.
@@ -62,7 +64,7 @@ public class WindowingMain {
             */
         );
 
-        // Combine the values of all records with the same key into a string separated by spaces, using 10-se
+        // Combine the values of all records with the same key into a string separated by spaces, using 10-second windows.
         KTable<Windowed<String>, String> reducedTable = windowedStream.reduce(
             (aggValue, newValue) -> aggValue + " " + newValue
         );
@@ -99,5 +101,7 @@ public class WindowingMain {
         }
 
         System.exit(0);
+
     }
+
 }

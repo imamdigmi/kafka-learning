@@ -27,7 +27,7 @@ public class Main {
         // Get the source stream.
         final StreamsBuilder builder = new StreamsBuilder();
         final KStream<String, String> source = builder.stream("inventory_purchases");
-
+        
         // Convert the value from String to Integer. If the value is not a properly-formatted number, print a message and set it to 0.
         final KStream<String, Integer> integerValuesSource = source.mapValues(value -> {
             try {
@@ -37,7 +37,7 @@ public class Main {
                 return 0;
             }
         });
-
+        
         // Group by the key and reduce to provide a total quantity for each key.
         final KTable<String, Integer> productCounts = integerValuesSource
             .groupByKey(Grouped.with(Serdes.String(), Serdes.Integer()))
@@ -47,7 +47,7 @@ public class Main {
         productCounts
             .toStream()
             .to("total_purchases", Produced.with(Serdes.String(), Serdes.Integer()));
-
+        
         final Topology topology = builder.build();
         final KafkaStreams streams = new KafkaStreams(topology, props);
         // Print the topology to the console.

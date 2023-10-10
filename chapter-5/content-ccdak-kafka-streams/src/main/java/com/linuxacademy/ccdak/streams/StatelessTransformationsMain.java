@@ -12,10 +12,8 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.KStream;
 
-/*import java.util.Properties;
-import java.util.concurrent.CountDownLatch;*/
-
 public class StatelessTransformationsMain {
+
     public static void main(String[] args) {
 
         // Set up the configuration.
@@ -33,8 +31,9 @@ public class StatelessTransformationsMain {
         final KStream<String, String> source = builder.stream("stateless-transformations-input-topic");
 
         // Branch:
-        // Split the stream into two streams, one containing all records where the key begins with "a", and t
-        KStream<String, String>[] branches = source.branch((key, value) -> key.startsWith("a"), (key, value) -> true);
+        // Split the stream into two streams, one containing all records where the key begins with "a", and the other containing all other records.
+        KStream<String, String>[] branches = source
+            .branch((key, value) -> key.startsWith("a"), (key, value) -> true);
         KStream<String, String> aKeysStream = branches[0];
         KStream<String, String> othersStream = branches[1];
 
@@ -43,9 +42,9 @@ public class StatelessTransformationsMain {
         aKeysStream = aKeysStream.filter((key, value) -> value.startsWith("a"));
 
         // FlatMap:
-        // For the "a" stream, convert each record into two records, one with an uppercased value and one wit
+        // For the "a" stream, convert each record into two records, one with an uppercased value and one with a lowercased value.
         aKeysStream = aKeysStream.flatMap((key, value) -> {
-            List<KeyValue<String, String> result = new LinkedList<>();
+            List<KeyValue<String, String>> result = new LinkedList<>();
             result.add(KeyValue.pair(key, value.toUpperCase()));
             result.add(KeyValue.pair(key, value.toLowerCase()));
             return result;
@@ -67,7 +66,7 @@ public class StatelessTransformationsMain {
 
         // Peek
         // Print each record to the console.
-        mergedStream.peek((key, value) -> System.out.println("key=" + key + ", value=" + value));
+        mergedStream = mergedStream.peek((key, value) -> System.out.println("key=" + key + ", value=" + value));
 
         // Output the transformed data to a topic.
         mergedStream.to("stateless-transformations-output-topic");
@@ -80,7 +79,7 @@ public class StatelessTransformationsMain {
         final CountDownLatch latch = new CountDownLatch(1);
 
         // Attach a shutdown handler to catch control-c and terminate the application gracefully.
-        Runtime.getRuntime().addShutdownHook(new Thread("streams-wordcount-shutdown-hook") {
+        Runtime.getRuntime().addShutdownHook(new Thread("streams-shutdown-hook") {
             @Override
             public void run() {
                 streams.close();
@@ -97,4 +96,5 @@ public class StatelessTransformationsMain {
         }
         System.exit(0);
     }
+
 }

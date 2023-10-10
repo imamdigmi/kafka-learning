@@ -10,11 +10,12 @@ import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.KStream;
 
 public class StreamsMain {
+
     public static void main(String[] args) {
 
         // Set up the configuration.
         final Properties props = new Properties();
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "inventory-data");
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "streams-example");
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, 0);
 
@@ -25,7 +26,9 @@ public class StreamsMain {
         // Get the source stream.
         final StreamsBuilder builder = new StreamsBuilder();
         final KStream<String, String> source = builder.stream("streams-input-topic");
+
         source.to("streams-output-topic");
+
         final Topology topology = builder.build();
         final KafkaStreams streams = new KafkaStreams(topology, props);
 
@@ -51,5 +54,7 @@ public class StreamsMain {
         }
 
         System.exit(0);
+
     }
+
 }
