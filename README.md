@@ -11,5 +11,6 @@ Table of Contents:
 - [Chapter 5](chapter-5/chapter-5.kafka-streams.md)
 - [Chapter 6](chapter-6/chapter-6.advanced-application-design-concept.md)
 - [Chapter 7](chapter-7/chapter-7.working-with-kafka-in-java.md)
+- [Chapter 8](chapter-8/chapter-8.working-with-the-confluent-kafka-rest-ap-is.md)
 
 [**Study Guide PDF Document**](study-guide.pdf)
