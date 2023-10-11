@@ -13,5 +13,6 @@ Table of Contents:
 - [Chapter 7](chapter-7/chapter-7.working-with-kafka-in-java.md)
 - [Chapter 8](chapter-8/chapter-8.working-with-the-confluent-kafka-rest-ap-is.md)
 - [Chapter 9](chapter-9/chapter-9.confluent-schema-registry.md)
+- [Chapter 10](chapter-10/chapter-10.kafka-connect.md)
 
 [**Study Guide PDF Document**](study-guide.pdf)
