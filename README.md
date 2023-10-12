@@ -14,5 +14,6 @@ Table of Contents:
 - [Chapter 8](chapter-8/chapter-8.working-with-the-confluent-kafka-rest-ap-is.md)
 - [Chapter 9](chapter-9/chapter-9.confluent-schema-registry.md)
 - [Chapter 10](chapter-10/chapter-10.kafka-connect.md)
+- [Chapter 11](chapter-11/chapter-11.kafka-security.md)
 
 [**Study Guide PDF Document**](study-guide.pdf)
