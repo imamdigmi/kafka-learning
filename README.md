@@ -15,5 +15,6 @@ Table of Contents:
 - [Chapter 9](chapter-9/chapter-9.confluent-schema-registry.md)
 - [Chapter 10](chapter-10/chapter-10.kafka-connect.md)
 - [Chapter 11](chapter-11/chapter-11.kafka-security.md)
+- [Chapter 12](chapter-12/chapter-12.testing.md)
 
 [**Study Guide PDF Document**](study-guide.pdf)
