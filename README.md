@@ -16,5 +16,6 @@ Table of Contents:
 - [Chapter 10](chapter-10/chapter-10.kafka-connect.md)
 - [Chapter 11](chapter-11/chapter-11.kafka-security.md)
 - [Chapter 12](chapter-12/chapter-12.testing.md)
+- [Chapter 13](chapter-13/chapter-13.working-with-clients.md)
 
 [**Study Guide PDF Document**](study-guide.pdf)
