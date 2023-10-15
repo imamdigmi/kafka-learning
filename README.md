@@ -17,5 +17,6 @@ Table of Contents:
 - [Chapter 11](chapter-11/chapter-11.kafka-security.md)
 - [Chapter 12](chapter-12/chapter-12.testing.md)
 - [Chapter 13](chapter-13/chapter-13.working-with-clients.md)
+- [Chapter 14](chapter-14/chapter-14.confluent-ksql.md)
 
 [**Study Guide PDF Document**](study-guide.pdf)
